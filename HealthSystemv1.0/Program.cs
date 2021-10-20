@@ -51,7 +51,7 @@ namespace HealthSystemv1._0
 
             if (shield <0)
             {
-                health = (shield - monsterAttack) + health;
+                health = health + shield;
                 shield = 0;
 
                 Console.WriteLine("this is working");
