@@ -11,7 +11,7 @@ namespace HealthSystemv1._0
         static int weapon = 0;
         static int health = 100;
         static int shield = 100;
-        static int lives = 1;
+        static int lives = 3;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
 
@@ -24,6 +24,24 @@ namespace HealthSystemv1._0
         static void Main(string[] args)
         {
 
+            
+
+            StartScreen();
+            Console.ReadKey(true);
+
+            Console.Clear();
+            Console.WriteLine("hello world!");
+
+            ArraysInilization();
+            ChangeWeapon(3);
+            RegenerateShield(1);
+            Heal(1);
+            ShowHUD();
+            Console.ReadKey(true);
+        }
+
+        static void ArraysInilization()
+        {
             // Health Status Array Strings 
             healthStatus[0] = " <Imminent Danger>";
             healthStatus[1] = " <Badly Hurt>";
@@ -37,18 +55,7 @@ namespace HealthSystemv1._0
             weaponName[2] = "DAGGERS";
             weaponName[1] = "SPEAR";
             weaponName[0] = " CLUB";
-
-            StartScreen();
-            Console.ReadKey(true);
-            Console.WriteLine("hello world!");
-            ChangeWeapon(3);
-            RegenerateShield(1);
-            Heal(1);
-            TakeDamage(1);
-            ShowHUD();
-            Console.ReadKey(true);
         }
-
         static void RegenerateShield(int hp)
         {
             shield = shield + 100;
@@ -146,12 +153,6 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
             Console.WriteLine("                           HUD                                                                                                         ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("    Lives:   " + lives + "                                            ");
@@ -166,16 +167,16 @@ namespace HealthSystemv1._0
         static void GameOver()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.WriteLine("                  |||||||    ||||     |    |    |||||||     ||||||    |     ||   |||||||   ||||||    ||||");
+            Console.WriteLine("                 ||||||||   ||||||   |||  |||  |||||| |    |||  |||  ||     ||  |||||| |  |||  |||   ||||");
+            Console.WriteLine("                 ||        |||   ||  |||  |||  ||    |     ||    ||  ||     ||  ||    |   ||    ||   ||||");
+            Console.WriteLine("                 ||        ||    ||  ||||||||  ||          ||    ||  ||     ||  ||        ||    ||   ||||");
+            Console.WriteLine("                 ||  ||||  ||    ||  ||||||||  ||||||||    ||    ||  ||     ||  ||||||||  ||    ||   ||||");
+            Console.WriteLine("                 ||   |||  ||    ||  || || ||  ||||||||    ||    ||  ||     ||  ||||||||  ||||||||    || ");
+            Console.WriteLine("                  |    |   ||||||||  ||    ||  ||          ||    ||  ||     ||  ||        |||||||     || ");
+            Console.WriteLine("                 ||    ||  ||    ||  ||    ||  ||          ||    ||   ||   ||   ||        ||  ||         ");
+            Console.WriteLine("                 ||||||||  ||    ||  ||    ||   |||||||     |||||||   |||||||    |||||||  ||   ||     || ");
+            Console.WriteLine("                  |||  |   |      |  ||    ||   |||| ||      |||||     |||       ||||| |  |     ||    || ");
             Console.ResetColor();
 
         }
@@ -198,6 +199,9 @@ namespace HealthSystemv1._0
             Console.WriteLine("                                            Dungeon Adventure Game                                                              ");
             Console.ResetColor();
             Console.WriteLine("                                          Press any button to begin                                                             ");
+            
+           
+            
         }
 
 
