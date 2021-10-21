@@ -8,7 +8,7 @@ namespace HealthSystemv1._0
 {
     class Program
     {
-        static int weapon = 1;
+        static int weapon = 0;
         static int health = 100;
         static int shield = 100;
         static int lives = 1;
@@ -38,14 +38,18 @@ namespace HealthSystemv1._0
             weaponName[1] = "SPEAR";
             weaponName[0] = " CLUB";
 
-
-            ChangeWeapon(0);
+            StartScreen();
+            Console.ReadKey(true);
+            Console.WriteLine("hello world!");
+            ChangeWeapon(3);
+            RegenerateShield(1);
             Heal(1);
+            TakeDamage(1);
             ShowHUD();
             Console.ReadKey(true);
         }
 
-        static void RegenerateShield()
+        static void RegenerateShield(int hp)
         {
             shield = shield + 100;
             if (shield > 100)
@@ -53,7 +57,7 @@ namespace HealthSystemv1._0
                 shield = 100;
             }
 
-            Console.WriteLine("Your Shield Has ReGenerated!");
+            Console.WriteLine("Your Shield Has Regenerated!");
         }
         static void Heal(int hp)
         {
@@ -85,7 +89,7 @@ namespace HealthSystemv1._0
                     if (lives <= 0)
                     {
                         Console.Clear();
-                        Console.WriteLine("Game Over");
+                        GameOver();
                     }
                 }
                 
@@ -159,6 +163,22 @@ namespace HealthSystemv1._0
             Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does // add damage aray //>");
         }
 
+        static void GameOver()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.ResetColor();
+
+        }
         static void StartScreen()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
