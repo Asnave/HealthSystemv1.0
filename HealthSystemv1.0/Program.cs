@@ -15,7 +15,7 @@ namespace HealthSystemv1._0
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
 
-        static int monsterAttack = 110;
+        static int monsterAttack = 150;
        
         
 
@@ -32,14 +32,14 @@ namespace HealthSystemv1._0
             healthStatus[4] = " <Perfectly Healthy>";
 
             // Weapon Name Array Strings 
-            weaponName[4] = "Long Sword";
-            weaponName[3] = "Battle Axe";
-            weaponName[2] = "  Daggers";
-            weaponName[1] = "   Spear";
-            weaponName[0] = "   club";
+            weaponName[4] = "LONG SWORD";
+            weaponName[3] = "BATTLE AXE";
+            weaponName[2] = "DAGGERS";
+            weaponName[1] = "SPEAR";
+            weaponName[0] = " CLUB";
 
 
-
+            ChangeWeapon(0);
             TakeDamage(0);
             ShowHUD();
             Console.ReadKey(true);
@@ -115,12 +115,15 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("                                                                                                                                 ");
-            Console.WriteLine("+-----------------------------------+-------------------------------------------------------------------------------------------+");
-            Console.WriteLine("|   Lives:   " +  lives + "                      |      Heal              <Restores " + healthPotion + " points of health>                                     |");
-            Console.WriteLine("|   Health: " + health +  healthStatus[currentHealthStatus] + " |   Use Shield           <Protects you from incomming attacks>                              |");
-            Console.WriteLine("|   Shield:  " + shield + "                     |   " + weaponName[weapon] + "                                                                                 |");
-            Console.WriteLine("+-----------------------------------+-------------------------------------------------------------------------------------------+");
+            Console.WriteLine("                           HUD                                                                                                         ");
+            Console.WriteLine("+---------------------------------------------------------+");
+            Console.WriteLine("    Lives:   " + lives + "                                            ");
+            Console.WriteLine("    Health: " + health + healthStatus[currentHealthStatus] + "                       ");
+            Console.WriteLine("   Shield:  " + shield + "                                           ");
+            Console.WriteLine("+---------------------------------------------------------+");
+            Console.WriteLine("                                                  ");
+            Console.WriteLine("    HEAL        <Player Health goes up " + healthPotion + " points when used>");
+            Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does // add damage aray //>");
         }
 
         static void StartScreen()
