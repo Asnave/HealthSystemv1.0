@@ -11,11 +11,11 @@ namespace HealthSystemv1._0
         static int weapon = 1;
         static int health = 100;
         static int shield = 100;
-        static int lives = 3;
+        static int lives = 1;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
 
-        static int monsterAttack = 150;
+        static int monsterAttack = 200;
        
         
 
@@ -54,7 +54,18 @@ namespace HealthSystemv1._0
                 health = health + shield;
                 shield = 0;
 
-                Console.WriteLine("this is working");
+                if (health <=0)
+                {
+                    lives = lives - 1;
+                    health = 100;
+                    shield = 100;
+
+                    if (lives <= 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Game Over");
+                    }
+                }
                 
             }
         }
