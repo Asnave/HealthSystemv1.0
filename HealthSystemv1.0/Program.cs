@@ -40,11 +40,23 @@ namespace HealthSystemv1._0
 
 
             ChangeWeapon(0);
-            TakeDamage(0);
+            Heal(2);
             ShowHUD();
             Console.ReadKey(true);
         }
 
+        static void Heal(int hp)
+        {
+
+            health = health + healthPotion;
+            if ( health > 100)
+            {
+                health = 100;
+            }
+
+            Console.WriteLine("You Have Been Healed!");
+
+        }
         static void TakeDamage(int damage)
         {
             shield = shield - monsterAttack;
@@ -133,7 +145,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("   Shield:  " + shield + "                                           ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("                                                  ");
-            Console.WriteLine("    HEAL        <Player Health goes up " + healthPotion + " points when used>");
+            Console.WriteLine("    HEAL        <Player Health goes up>)"  );
             Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does // add damage aray //>");
         }
 
