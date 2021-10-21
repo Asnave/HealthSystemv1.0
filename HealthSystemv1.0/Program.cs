@@ -14,6 +14,7 @@ namespace HealthSystemv1._0
         static int lives = 3;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
+        
 
         static int monsterAttack = 200;
        
@@ -21,6 +22,7 @@ namespace HealthSystemv1._0
 
         static string[] healthStatus = new string[5];
         static string[] weaponName = new string[5];
+        static int[]  weaponDamage = new int[5];
         static void Main(string[] args)
         {
 
@@ -30,7 +32,7 @@ namespace HealthSystemv1._0
             Console.ReadKey(true);
 
             Console.Clear();
-            Console.WriteLine("hello world!");
+            
 
             ArraysInilization();
             ChangeWeapon(3);
@@ -40,6 +42,8 @@ namespace HealthSystemv1._0
             Console.ReadKey(true);
         }
 
+       
+        
         static void ArraysInilization()
         {
             // Health Status Array Strings 
@@ -52,24 +56,40 @@ namespace HealthSystemv1._0
             // Weapon Name Array Strings 
             weaponName[4] = "LONG SWORD";
             weaponName[3] = "BATTLE AXE";
-            weaponName[2] = "DAGGERS";
-            weaponName[1] = "SPEAR";
-            weaponName[0] = " CLUB";
+            weaponName[2] = "DAGGERS   ";
+            weaponName[1] = "SPEAR     ";
+            weaponName[0] = " CLUB    ";
+
+            // Weapon Damage Array ints
+            weaponDamage[4] = 25;
+            weaponDamage[3] = 15;
+            weaponDamage[2] = 10;
+            weaponDamage[1] =  5;
+            weaponDamage[0] =  1;
         }
         static void RegenerateShield(int hp)
         {
             shield = shield + 100;
+
+            // Range Checking.....
             if (shield > 100)
             {
                 shield = 100;
+                Console.WriteLine("Your Shield Has Regenerated!");
             }
 
-            Console.WriteLine("Your Shield Has Regenerated!");
+            // Error Checking......
+            if (shield < 0)
+            {
+                Console.WriteLine("Shield is broken....");
+            }
         }
         static void Heal(int hp)
         {
 
             health = health + healthPotion;
+
+            // Range Checking.....
             if ( health > 100)
             {
                 health = 100;
@@ -77,17 +97,27 @@ namespace HealthSystemv1._0
 
             Console.WriteLine("You Have Been Healed!");
 
+            // error Checking....
+
+            if (health < 0)
+            {
+                Console.WriteLine("Health is broken....");
+            }
+
         }
         static void TakeDamage(int damage)
         {
             shield = shield - monsterAttack;
 
-            if (shield <0)
+
+
+            // Range Checking and "Spill over effect"
+            if (shield < 0)
             {
                 health = health + shield;
                 shield = 0;
 
-                if (health <=0)
+                if (health <= 0)
                 {
                     lives = lives - 1;
                     health = 100;
@@ -99,7 +129,11 @@ namespace HealthSystemv1._0
                         GameOver();
                     }
                 }
-                
+            }
+            // Error Checking.....
+            if (lives < 0)
+            {
+                Console.WriteLine("Lives are broken.....");
             }
         }
 
@@ -160,8 +194,8 @@ namespace HealthSystemv1._0
             Console.WriteLine("   Shield:  " + shield + "                                           ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("                                                  ");
-            Console.WriteLine("    HEAL        <Player Health goes up>)"  );
-            Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does // add damage aray //>");
+            Console.WriteLine("    HEAL             <Player Health goes up>)"  );
+            Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
         }
 
         static void GameOver()
