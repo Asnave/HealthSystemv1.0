@@ -40,11 +40,21 @@ namespace HealthSystemv1._0
 
 
             ChangeWeapon(0);
-            Heal(2);
+            Heal(1);
             ShowHUD();
             Console.ReadKey(true);
         }
 
+        static void RegenerateShield()
+        {
+            shield = shield + 100;
+            if (shield > 100)
+            {
+                shield = 100;
+            }
+
+            Console.WriteLine("Your Shield Has ReGenerated!");
+        }
         static void Heal(int hp)
         {
 
