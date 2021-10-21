@@ -11,7 +11,7 @@ namespace HealthSystemv1._0
         static int weapon = 0;
         static int health = 100;
         static int shield = 100;
-        static int lives = 3;
+        static int lives = 1;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
         
@@ -20,24 +20,20 @@ namespace HealthSystemv1._0
        
         
 
-        static string[] healthStatus = new string[5];
+        static string[] healthStatus = new string[6];
         static string[] weaponName = new string[5];
         static int[]  weaponDamage = new int[5];
         static void Main(string[] args)
         {
 
-            
+            ArraysInilization();
 
             StartScreen();
             Console.ReadKey(true);
-
             Console.Clear();
-            
 
-            ArraysInilization();
             ChangeWeapon(3);
-            RegenerateShield(1);
-            Heal(1);
+            TakeDamage(1);
             ShowHUD();
             Console.ReadKey(true);
         }
@@ -52,6 +48,7 @@ namespace HealthSystemv1._0
             healthStatus[2] = " <Hurt>";
             healthStatus[3] = " <Healthy>";
             healthStatus[4] = " <Perfectly Healthy>";
+            healthStatus[5] = " <DEAD> ";
 
             // Weapon Name Array Strings 
             weaponName[4] = "LONG SWORD";
@@ -103,6 +100,10 @@ namespace HealthSystemv1._0
             {
                 Console.WriteLine("Health is broken....");
             }
+            if (health > 100)
+            {
+                Console.WriteLine("Health is broken....");
+            }
 
         }
         static void TakeDamage(int damage)
@@ -144,6 +145,8 @@ namespace HealthSystemv1._0
 
         static void HealthStatusCheck()
         {
+
+
             if (health == 1)
             {
                 currentHealthStatus = 0;
@@ -174,6 +177,11 @@ namespace HealthSystemv1._0
                 currentHealthStatus = 4;
             }
 
+            if (health == 0)
+            {
+                currentHealthStatus = 5;
+            }
+
         }
         static void ShowHUD()
         {
@@ -189,7 +197,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("                           HUD                                                                                                         ");
             Console.WriteLine("+---------------------------------------------------------+");
-            Console.WriteLine("    Lives:   " + lives + "                                            ");
+            Console.WriteLine("    Lives:  " + lives + "                                            ");
             Console.WriteLine("    Health: " + health + healthStatus[currentHealthStatus] + "                       ");
             Console.WriteLine("   Shield:  " + shield + "                                           ");
             Console.WriteLine("+---------------------------------------------------------+");
@@ -200,6 +208,10 @@ namespace HealthSystemv1._0
 
         static void GameOver()
         {
+
+            lives = 0;
+            health = 0;
+            shield = 0;
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("                  |||||||    ||||     |    |    |||||||     ||||||    |     ||   |||||||   ||||||    ||||");
             Console.WriteLine("                 ||||||||   ||||||   |||  |||  |||||| |    |||  |||  ||     ||  |||||| |  |||  |||   ||||");
@@ -212,6 +224,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("                 ||||||||  ||    ||  ||    ||   |||||||     |||||||   |||||||    |||||||  ||   ||     || ");
             Console.WriteLine("                  |||  |   |      |  ||    ||   |||| ||      |||||     |||       ||||| |  |     ||    || ");
             Console.ResetColor();
+
 
         }
         static void StartScreen()
