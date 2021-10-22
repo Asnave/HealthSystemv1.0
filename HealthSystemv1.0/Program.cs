@@ -16,13 +16,18 @@ namespace HealthSystemv1._0
         static int currentHealthStatus = 0;
         
 
+
+        static int enemyLives = -1;
+        static int enemyHealth = 0;
+        static int enemyShield = 0;
+
         static int monsterAttack = 200;
-       
-        
+
+
 
         static string[] healthStatus = new string[6];
         static string[] weaponName = new string[5];
-        static int[]  weaponDamage = new int[5];
+        static int[] weaponDamage = new int[5];
         static void Main(string[] args)
         {
 
@@ -32,14 +37,17 @@ namespace HealthSystemv1._0
             Console.ReadKey(true);
             Console.Clear();
 
+
             ChangeWeapon(3);
-            TakeDamage(1);
+
+            DoDamage(1);
             ShowHUD();
+            EnemyHUD();
             Console.ReadKey(true);
         }
 
-       
-        
+
+
         static void ArraysInilization()
         {
             // Health Status Array Strings 
@@ -61,8 +69,8 @@ namespace HealthSystemv1._0
             weaponDamage[4] = 25;
             weaponDamage[3] = 15;
             weaponDamage[2] = 10;
-            weaponDamage[1] =  5;
-            weaponDamage[0] =  1;
+            weaponDamage[1] = 5;
+            weaponDamage[0] = 1;
         }
         static void RegenerateShield(int hp)
         {
@@ -87,7 +95,7 @@ namespace HealthSystemv1._0
             health = health + healthPotion;
 
             // Range Checking.....
-            if ( health > 100)
+            if (health > 100)
             {
                 health = 100;
             }
@@ -104,6 +112,17 @@ namespace HealthSystemv1._0
             {
                 Console.WriteLine("Health is broken....");
             }
+
+        }
+
+        static void OneUp()
+        {
+            lives = lives + 1;
+            health = 100;
+            RegenerateShield(1);
+
+        
+            Console.WriteLine("You got a 1UP!");
 
         }
         static void TakeDamage(int damage)
@@ -128,6 +147,7 @@ namespace HealthSystemv1._0
                     {
                         Console.Clear();
                         GameOver();
+                        lives = 0;
                     }
                 }
             }
@@ -138,6 +158,42 @@ namespace HealthSystemv1._0
             }
         }
 
+        static void DoDamage(int damage)
+        {
+            enemyShield = enemyShield - weaponDamage[weapon];
+
+
+
+            // Range Checking and "Spill over effect"
+            if (enemyShield < 0)
+            {
+                
+                enemyHealth = enemyHealth + enemyShield;
+                enemyShield = 0;
+
+                if (enemyHealth <= 0)
+                {
+                    enemyLives = enemyLives - 1;
+                    enemyHealth = 100;
+                    enemyShield = 100;
+
+                    if (enemyLives <= 0)
+                    {
+                        Console.WriteLine("You Kill Your Enemy!");
+                        YouWin();
+
+                        enemyLives = 0;
+
+                    }
+                }
+            }
+            // Error Checking.....
+            if (enemyLives < 0)
+            {
+                enemyLives = 0;
+                Console.WriteLine(" Enemy Lives are broken.....");
+            }
+        }
         static void ChangeWeapon(int currentWeapon)
         {
             weapon = currentWeapon;
@@ -182,19 +238,29 @@ namespace HealthSystemv1._0
                 currentHealthStatus = 5;
             }
 
+
+
+        }
+
+        static void EnemyHUD()
+        {
+            HealthStatusCheck();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                         ENEMY HUD                                                                                                         ");
+            Console.WriteLine("+---------------------------------------------------------+");
+            Console.WriteLine("    Lives:  " + enemyLives + "                                            ");
+            Console.WriteLine("    Health: " + enemyHealth + healthStatus[currentHealthStatus] + "                       ");
+            Console.WriteLine("   Shield:  " + enemyShield + "                                           ");
+            Console.WriteLine("+---------------------------------------------------------+");
+            Console.WriteLine("");
+            Console.ResetColor();
         }
         static void ShowHUD()
         {
             HealthStatusCheck();
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
+           
             Console.WriteLine("                           HUD                                                                                                         ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("    Lives:  " + lives + "                                            ");
@@ -202,10 +268,21 @@ namespace HealthSystemv1._0
             Console.WriteLine("   Shield:  " + shield + "                                           ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("                                                  ");
-            Console.WriteLine("    HEAL             <Player Health goes up>)"  );
-            Console.WriteLine("   "  +   weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+            Console.WriteLine("    HEAL             <Player Health goes up>)");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
         }
 
+        static void YouWin()
+            {
+
+            // 1UP for winning  //
+
+            OneUp();
+
+
+
+
+            }
         static void GameOver()
         {
 
