@@ -260,7 +260,7 @@ namespace HealthSystemv1._0
         static void ShowHUD()
         {
             HealthStatusCheck();
-           
+            Console.WriteLine("");
             Console.WriteLine("                           HUD                                                                                                         ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("    Lives:  " + lives + "                                            ");
@@ -274,15 +274,23 @@ namespace HealthSystemv1._0
 
         static void YouWin()
             {
-
             // 1UP for winning  //
-
             OneUp();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("                 |||  |||   ||||||     |     ||    ||    ||   ||   |    ||  ||||");
+            Console.WriteLine("                 |||  |||  |||  |||   ||     ||    ||    ||   ||  |||   ||  ||||");
+            Console.WriteLine("                 |||  |||  ||    ||   ||     ||    ||    ||       ||||  ||  ||||");
+            Console.WriteLine("                 |||  |||  ||    ||   ||     ||    ||    ||   ||  || || ||  ||||");
+            Console.WriteLine("                  ||  ||   ||    ||   ||     ||    || || ||   ||  || || ||  ||||");
+            Console.WriteLine("                   ||||    ||    ||   ||     ||    ||||||||   ||  || || ||   || ");
+            Console.WriteLine("                   ||||    ||    ||   ||     ||    ||||||||   ||  || || ||   || ");
+            Console.WriteLine("                    ||     ||    ||   ||     ||    |||  |||   ||  || || ||      ");
+            Console.WriteLine("                    ||      |||||||   ||   ||      |||  |||   ||  ||  ||||   || ");
+            Console.WriteLine("                    ||       |||||    |||||||       |    |    ||  ||    ||   || ");
+            Console.ResetColor();
 
 
-
-
-            }
+        }
         static void GameOver()
         {
 
