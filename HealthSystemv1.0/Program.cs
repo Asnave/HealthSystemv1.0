@@ -8,23 +8,24 @@ namespace HealthSystemv1._0
 {
     class Program
     {
+        // Players ints //
         static int weapon = 0;
         static int health = 100;
         static int shield = 100;
-        static int lives = 1;
+        static int lives = 3;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
         
 
+        //Enemy ints //
+        static int enemyLives =  1;
+        static int enemyHealth = 100;
+        static int enemyShield =  50;
+        static int eCurrentHealthStatus = 0;
+        static int monsterAttack = 20;
 
-        static int enemyLives = -1;
-        static int enemyHealth = 0;
-        static int enemyShield = 0;
 
-        static int monsterAttack = 200;
-
-
-
+        // Arrays //
         static string[] healthStatus = new string[6];
         static string[] weaponName = new string[5];
         static int[] weaponDamage = new int[5];
@@ -37,13 +38,169 @@ namespace HealthSystemv1._0
             Console.ReadKey(true);
             Console.Clear();
 
-
             ChangeWeapon(3);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine(" You travel down a long, torch lit halway.");
+            Console.WriteLine(" A chest lies underneath one of the clutter filled spaces");
+            Console.WriteLine(" Oviously you opne it, revealing:" + weaponName[weapon]);
+            Console.WriteLine(" Picking it up you contiune down the hall until you reach a door");
+            Console.WriteLine(" You go through the doorway.........");
+            Console.ReadKey(true);
 
-            DoDamage(1);
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("A-HA!");
+            Console.WriteLine("A Goblin Apears! Ready to attack!");
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            TakeDamage(2);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("You Get Ready to Attack!");
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            DoDamage(3);
+            EnemyHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Goblin starts to snicker when comming in for another attack!");
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            TakeDamage(5);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("feeling weak, you use this turn to possibly heal and regenerate shield");
+            RegenerateShield(1);
+            Heal(1);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine(" Goblin goes in for a attack!");
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            TakeDamage(0);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("You feel really charged up since the last attack!");
+            DoDamage(10);
             ShowHUD();
             EnemyHUD();
             Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Error ShowCase");
+            Console.WriteLine("");
+
+            health = -10000;
+            lives = -10000;
+            shield = -10000;
+            RegenerateShield(1);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Error ShowCase");
+            Console.WriteLine("");
+
+            lives = -10000;
+            shield = -10000;
+            health = -10000;
+            Heal(1);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Error ShowCase");
+            Console.WriteLine("");
+
+            health = -10000;
+            shield = -10000;
+            lives = -10000;
+            TakeDamage(1);
+            ShowHUD();
+            Console.ReadKey(true);
+
+
+
         }
 
 
@@ -75,19 +232,17 @@ namespace HealthSystemv1._0
         static void RegenerateShield(int hp)
         {
             shield = shield + 100;
-
+            Console.WriteLine("Your Shield Has Regenerated!");
             // Range Checking.....
             if (shield > 100)
             {
+                
                 shield = 100;
-                Console.WriteLine("Your Shield Has Regenerated!");
+               
             }
 
-            // Error Checking......
-            if (shield < 0)
-            {
-                Console.WriteLine("Shield is broken....");
-            }
+            ErrorCheck();
+       
         }
         static void Heal(int hp)
         {
@@ -102,16 +257,8 @@ namespace HealthSystemv1._0
 
             Console.WriteLine("You Have Been Healed!");
 
-            // error Checking....
+            ErrorCheck();
 
-            if (health < 0)
-            {
-                Console.WriteLine("Health is broken....");
-            }
-            if (health > 100)
-            {
-                Console.WriteLine("Health is broken....");
-            }
 
         }
 
@@ -127,9 +274,13 @@ namespace HealthSystemv1._0
         }
         static void TakeDamage(int damage)
         {
-            shield = shield - monsterAttack;
-
-
+            shield = shield - (damage * monsterAttack);
+            if (damage == 0)
+            {
+                Console.WriteLine("Goblin Misses Attack!");
+            }
+            Console.WriteLine("Goblin Attack does " + (damage * monsterAttack) + " damage!");
+            
 
             // Range Checking and "Spill over effect"
             if (shield < 0)
@@ -145,24 +296,20 @@ namespace HealthSystemv1._0
 
                     if (lives <= 0)
                     {
-                        Console.Clear();
+                        
                         GameOver();
                         lives = 0;
                     }
                 }
             }
-            // Error Checking.....
-            if (lives < 0)
-            {
-                Console.WriteLine("Lives are broken.....");
-            }
+            ErrorCheck();
         }
 
         static void DoDamage(int damage)
         {
-            enemyShield = enemyShield - weaponDamage[weapon];
+            enemyShield = enemyShield - (damage * weaponDamage[weapon]);
 
-
+            Console.WriteLine("You Attack! doing " + (damage * weaponDamage[weapon]) + " damage! with your " + weaponName[weapon] + "!");
 
             // Range Checking and "Spill over effect"
             if (enemyShield < 0)
@@ -179,10 +326,12 @@ namespace HealthSystemv1._0
 
                     if (enemyLives <= 0)
                     {
-                        Console.WriteLine("You Kill Your Enemy!");
+                        Console.WriteLine("You Killed Your Enemy!");
                         YouWin();
 
                         enemyLives = 0;
+                        enemyHealth = 0;
+                        enemyShield = 0;
 
                     }
                 }
@@ -238,6 +387,41 @@ namespace HealthSystemv1._0
                 currentHealthStatus = 5;
             }
 
+            /////// Enemy Health Status Check /////
+            if (enemyHealth == 1)
+            {
+                eCurrentHealthStatus = 0;
+            }
+
+            if (enemyHealth >= 11)
+            {
+                eCurrentHealthStatus = 1;
+            }
+
+            if (enemyHealth <= 50)
+            {
+                eCurrentHealthStatus = 1;
+            }
+
+            if (enemyHealth >= 51)
+            {
+                eCurrentHealthStatus = 2;
+            }
+
+            if (enemyHealth >= 76)
+            {
+                eCurrentHealthStatus = 3;
+            }
+
+            if (enemyHealth == 100)
+            {
+                eCurrentHealthStatus = 4;
+            }
+
+            if (enemyHealth == 0)
+            {
+                eCurrentHealthStatus = 5;
+            }
 
 
         }
@@ -251,7 +435,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("                         ENEMY HUD                                                                                                         ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("    Lives:  " + enemyLives + "                                            ");
-            Console.WriteLine("    Health: " + enemyHealth + healthStatus[currentHealthStatus] + "                       ");
+            Console.WriteLine("    Health: " + enemyHealth + healthStatus[eCurrentHealthStatus] + "                       ");
             Console.WriteLine("   Shield:  " + enemyShield + "                                           ");
             Console.WriteLine("+---------------------------------------------------------+");
             Console.WriteLine("");
@@ -336,7 +520,50 @@ namespace HealthSystemv1._0
             
         }
 
+        static void ErrorCheck()
+        {
 
+            if (lives < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Lives are broken.....");
+                Console.ResetColor();
+            }
+
+            if (lives > 100)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Lives are broken.....");
+                Console.ResetColor();
+            }
+
+            if (health < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Health is broken....");
+                Console.ResetColor();
+            }
+            if (health > 100)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Health is broken....");
+                Console.ResetColor();
+            }
+
+            if (shield < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Shield is broken....");
+                Console.ResetColor();
+            }
+
+            if (shield > 100)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Shield is broken....");
+                Console.ResetColor();
+            }
+        }
 
     }
 }
