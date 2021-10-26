@@ -14,7 +14,6 @@ namespace HealthSystemv1._0
         static int health = 100;
         static int shield = 100;
         static int lives = 3;
-        static int healthPotion = 20;
         static int currentHealthStatus = 0;
 
 
@@ -120,8 +119,8 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("feeling weak, you use this turn to possibly heal and regenerate shield");
-            RegenerateShield(1);
-            Heal(1);
+            RegenerateShield(100);
+            Heal(30);
             ShowHUD();
             Console.ReadKey(true);
 
@@ -164,6 +163,8 @@ namespace HealthSystemv1._0
 
         static void UnityTesting()
         {
+            
+
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
@@ -171,11 +172,13 @@ namespace HealthSystemv1._0
             Console.WriteLine("Unity testing....");
             Console.WriteLine("");
 
+            // Heal Debugs 
             Console.WriteLine("Testing Heal(int hp) should respect <= 100");
             health = 100;
             Heal(10);
             ErrorCheck();
-            Console.WriteLine( "Health:" + health);
+            HealthStatusCheck();
+            Console.WriteLine( "Health:" + health + " " + healthStatus[currentHealthStatus]);
             Debug.Assert(health <= 100);
 
             Console.WriteLine("");
@@ -185,9 +188,61 @@ namespace HealthSystemv1._0
             health = 100;
             Heal(-10);
             ErrorCheck();
-            Console.WriteLine("Health:" + health);
-            Debug.Assert(health <= 100);
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(health <= 0);
 
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            //RegenerateShield Debug
+            Console.WriteLine("Testing RegenerateShield(int hp) should respect <= 100");
+            shield = 100;
+            RegenerateShield(10);
+            ErrorCheck();
+            Console.WriteLine("Shield:" + shield);
+            Debug.Assert(shield <= 100);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Testing RegenerateShield(int hp) shouldnt register a negaitve regeneration");
+            shield = 100;
+            RegenerateShield(-10);
+            ErrorCheck();
+            Console.WriteLine("Shield:" + shield);
+            Debug.Assert(shield <= 0);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            // spill over 
+            Console.WriteLine("TakeDamage(int damage) Modifing health, shield, lives");
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(15);
+            HealthStatusCheck();
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("TakeDamage(int damage) Modifing health, shield, lives");
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(12);
+            HealthStatusCheck();
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
+            shield = 100;
+            health = 100;
+            lives = 3;
         }
 
         static void ArraysInilization()
@@ -216,8 +271,9 @@ namespace HealthSystemv1._0
         }
         static void RegenerateShield(int hp)
         {
-            shield = shield + 100;
-            Console.WriteLine("Your Shield Has Regenerated!");
+            shield = shield + hp;
+            Console.WriteLine("Your Shield Has Regenerated! " + hp + " hp");
+           
             // Range Checking.....
             if (shield > 100)
             {
@@ -232,7 +288,7 @@ namespace HealthSystemv1._0
         static void Heal(int hp)
         {
 
-            health = health + healthPotion;
+            health = health + hp;
 
             // Range Checking.....
             if (health > 100)
@@ -257,14 +313,14 @@ namespace HealthSystemv1._0
             Console.WriteLine("You got a 1UP!");
 
         }
-        static void TakeDamage(int damage)
+        static void TakeDamage(int hits)
         {
-            shield = shield - (damage * monsterAttack);
-            if (damage == 0)
+            shield = shield - (hits * monsterAttack);
+            if (hits == 0)
             {
                 Console.WriteLine("Goblin Misses Attack!");
             }
-            Console.WriteLine("Goblin Attack does " + (damage * monsterAttack) + " damage!");
+            Console.WriteLine("Goblin Attack does " + (hits * monsterAttack) + " damage!");
 
 
             // Range Checking and "Spill over effect"
@@ -276,25 +332,23 @@ namespace HealthSystemv1._0
                 if (health <= 0)
                 {
                     lives = lives - 1;
-                    health = 100;
                     shield = 100;
+                    shield = shield + health;
+                    health = 100;
 
-                    if (lives <= 0)
-                    {
 
-                        GameOver();
-                        lives = 0;
-                    }
+                  
+
                 }
             }
             ErrorCheck();
         }
 
-        static void DoDamage(int damage)
+        static void DoDamage(int hits)
         {
-            enemyShield = enemyShield - (damage * weaponDamage[weapon]);
+            enemyShield = enemyShield - (hits * weaponDamage[weapon]);
 
-            Console.WriteLine("You Attack! doing " + (damage * weaponDamage[weapon]) + " damage! with your " + weaponName[weapon] + "!");
+            Console.WriteLine("You Attack! doing " + (hits * weaponDamage[weapon]) + " damage! with your " + weaponName[weapon] + "!");
 
             // Range Checking and "Spill over effect"
             if (enemyShield < 0)
@@ -507,6 +561,7 @@ namespace HealthSystemv1._0
 
         static void ErrorCheck()
         {
+           
 
             if (lives < 0)
             {
@@ -521,40 +576,40 @@ namespace HealthSystemv1._0
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Lives are broken.....");
                 Console.ResetColor();
-
-
-                if (health < 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Health is broken....");
-                    Console.ResetColor();
-
-                }
-                if (health > 100)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Health is broken....");
-                    Console.ResetColor();
-
-
-                }
-
-                if (shield < 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Shield is broken....");
-                    Console.ResetColor();
-
-                }
-
-                if (shield > 100)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Shield is broken....");
-                    Console.ResetColor();
-
-                }
             }
+
+            if (health < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Health is broken....");
+                Console.ResetColor();
+
+            }
+            if (health > 100)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Health is broken....");
+                Console.ResetColor();
+
+
+            }
+
+            if (shield < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Shield is broken....");
+                Console.ResetColor();
+
+            }
+
+            if (shield > 100)
+            {
+                 Console.ForegroundColor = ConsoleColor.Red;
+                 Console.WriteLine("Shield is broken....");
+                 Console.ResetColor();
+
+            }
+            
 
         }
     }
