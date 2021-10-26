@@ -184,17 +184,6 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
 
-            Console.WriteLine("Testing Heal(int hp) shouldnt register a negaitve heal");
-            health = 100;
-            Heal(-10);
-            ErrorCheck();
-            HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(health <= 0);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
             //RegenerateShield Debug
             Console.WriteLine("Testing RegenerateShield(int hp) should respect <= 100");
             shield = 100;
@@ -202,16 +191,6 @@ namespace HealthSystemv1._0
             ErrorCheck();
             Console.WriteLine("Shield:" + shield);
             Debug.Assert(shield <= 100);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            Console.WriteLine("Testing RegenerateShield(int hp) shouldnt register a negaitve regeneration");
-            shield = 100;
-            RegenerateShield(-10);
-            ErrorCheck();
-            Console.WriteLine("Shield:" + shield);
-            Debug.Assert(shield <= 0);
 
             Console.WriteLine("");
             Console.WriteLine("");
