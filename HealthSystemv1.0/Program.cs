@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace HealthSystemv1._0
 {
@@ -15,12 +16,12 @@ namespace HealthSystemv1._0
         static int lives = 3;
         static int healthPotion = 20;
         static int currentHealthStatus = 0;
-        
+
 
         //Enemy ints //
-        static int enemyLives =  1;
+        static int enemyLives = 1;
         static int enemyHealth = 100;
-        static int enemyShield =  50;
+        static int enemyShield = 50;
         static int eCurrentHealthStatus = 0;
         static int monsterAttack = 20;
 
@@ -34,9 +35,13 @@ namespace HealthSystemv1._0
 
             ArraysInilization();
 
-            StartScreen();
+            UnityTesting();
             Console.ReadKey(true);
             Console.Clear();
+
+            StartScreen();
+            Console.ReadKey(true);
+            
 
             ChangeWeapon(3);
             Console.WriteLine("");
@@ -153,57 +158,37 @@ namespace HealthSystemv1._0
 
             Console.Clear();
 
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Error ShowCase");
-            Console.WriteLine("");
-
-            health = -10000;
-            lives = -10000;
-            shield = -10000;
-            RegenerateShield(1);
-            ShowHUD();
-            Console.ReadKey(true);
-
-            Console.Clear();
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Error ShowCase");
-            Console.WriteLine("");
-
-            lives = -10000;
-            shield = -10000;
-            health = -10000;
-            Heal(1);
-            ShowHUD();
-            Console.ReadKey(true);
-
-            Console.Clear();
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Error ShowCase");
-            Console.WriteLine("");
-
-            health = -10000;
-            shield = -10000;
-            lives = -10000;
-            TakeDamage(1);
-            ShowHUD();
-            Console.ReadKey(true);
-
 
 
         }
 
+        static void UnityTesting()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Unity testing....");
+            Console.WriteLine("");
 
+            Console.WriteLine("Testing Heal(int hp) should respect <= 100");
+            health = 100;
+            Heal(10);
+            ErrorCheck();
+            Console.WriteLine( "Health:" + health);
+            Debug.Assert(health <= 100);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Testing Heal(int hp) shouldnt register a negaitve heal");
+            health = 100;
+            Heal(-10);
+            ErrorCheck();
+            Console.WriteLine("Health:" + health);
+            Debug.Assert(health <= 100);
+
+        }
 
         static void ArraysInilization()
         {
@@ -236,13 +221,13 @@ namespace HealthSystemv1._0
             // Range Checking.....
             if (shield > 100)
             {
-                
+
                 shield = 100;
-               
+
             }
 
             ErrorCheck();
-       
+
         }
         static void Heal(int hp)
         {
@@ -255,7 +240,7 @@ namespace HealthSystemv1._0
                 health = 100;
             }
 
-            Console.WriteLine("You Have Been Healed!");
+            Console.WriteLine("You Have Been Healed! " + hp + " hp");
 
             ErrorCheck();
 
@@ -268,7 +253,7 @@ namespace HealthSystemv1._0
             health = 100;
             RegenerateShield(1);
 
-        
+
             Console.WriteLine("You got a 1UP!");
 
         }
@@ -280,7 +265,7 @@ namespace HealthSystemv1._0
                 Console.WriteLine("Goblin Misses Attack!");
             }
             Console.WriteLine("Goblin Attack does " + (damage * monsterAttack) + " damage!");
-            
+
 
             // Range Checking and "Spill over effect"
             if (shield < 0)
@@ -296,7 +281,7 @@ namespace HealthSystemv1._0
 
                     if (lives <= 0)
                     {
-                        
+
                         GameOver();
                         lives = 0;
                     }
@@ -314,7 +299,7 @@ namespace HealthSystemv1._0
             // Range Checking and "Spill over effect"
             if (enemyShield < 0)
             {
-                
+
                 enemyHealth = enemyHealth + enemyShield;
                 enemyShield = 0;
 
@@ -457,7 +442,7 @@ namespace HealthSystemv1._0
         }
 
         static void YouWin()
-            {
+        {
             // 1UP for winning  //
             OneUp();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -515,9 +500,9 @@ namespace HealthSystemv1._0
             Console.WriteLine("                                            Dungeon Adventure Game                                                              ");
             Console.ResetColor();
             Console.WriteLine("                                          Press any button to begin                                                             ");
-            
-           
-            
+
+
+
         }
 
         static void ErrorCheck()
@@ -528,6 +513,7 @@ namespace HealthSystemv1._0
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Lives are broken.....");
                 Console.ResetColor();
+
             }
 
             if (lives > 100)
@@ -535,35 +521,41 @@ namespace HealthSystemv1._0
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Lives are broken.....");
                 Console.ResetColor();
+
+
+                if (health < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Health is broken....");
+                    Console.ResetColor();
+
+                }
+                if (health > 100)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Health is broken....");
+                    Console.ResetColor();
+
+
+                }
+
+                if (shield < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Shield is broken....");
+                    Console.ResetColor();
+
+                }
+
+                if (shield > 100)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Shield is broken....");
+                    Console.ResetColor();
+
+                }
             }
 
-            if (health < 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Health is broken....");
-                Console.ResetColor();
-            }
-            if (health > 100)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Health is broken....");
-                Console.ResetColor();
-            }
-
-            if (shield < 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Shield is broken....");
-                Console.ResetColor();
-            }
-
-            if (shield > 100)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Shield is broken....");
-                Console.ResetColor();
-            }
         }
-
     }
 }
