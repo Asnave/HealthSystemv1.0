@@ -43,6 +43,9 @@ namespace HealthSystemv1._0
             health = 100;
             shield = 100;
             lives = 3;
+            enemyHealth = 100;
+            enemyHealth = 100;
+            enemyLives = 1;
 
             ChangeWeapon(3);
             Console.WriteLine("");
@@ -342,7 +345,6 @@ namespace HealthSystemv1._0
             Console.WriteLine("Before change Weapon");
             Console.WriteLine("");
             Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-
             Console.WriteLine("");
 
             Console.WriteLine("Change to Spear");
@@ -383,7 +385,7 @@ namespace HealthSystemv1._0
 
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(2);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
@@ -396,7 +398,7 @@ namespace HealthSystemv1._0
 
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(6);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
@@ -409,7 +411,7 @@ namespace HealthSystemv1._0
             weapon = 3;
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(6);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
@@ -422,7 +424,7 @@ namespace HealthSystemv1._0
             weapon = 2;
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(6);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
@@ -435,7 +437,7 @@ namespace HealthSystemv1._0
             weapon = 1;
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(6);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
@@ -448,7 +450,7 @@ namespace HealthSystemv1._0
             weapon = 0;
             enemyShield = 100;
             enemyHealth = 100;
-            enemyLives = 3;
+            enemyLives = 1;
             DoDamage(6);
             HealthStatusCheck();
             Console.WriteLine("--------Enemy Stats--------");
