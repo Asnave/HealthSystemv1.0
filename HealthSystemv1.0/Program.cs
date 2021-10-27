@@ -195,8 +195,10 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
 
+            Console.WriteLine("Testing Spill Over Effect");
+
             // spill over 
-            Console.WriteLine("TakeDamage(int damage) Modifing health, shield, lives");
+            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
@@ -209,7 +211,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
 
-            Console.WriteLine("TakeDamage(int damage) Modifing health, shield, lives");
+            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
@@ -219,9 +221,111 @@ namespace HealthSystemv1._0
             Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
             Console.WriteLine("Lives:" + lives);
 
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
+            TakeDamage(3);
+            HealthStatusCheck();
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
+            shield = 100;
+            health = 100;
+            lives = 3;
+
+            TakeDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.ReadKey(true);
+            Console.Clear();
+
+            // Health Status ....
+            Console.WriteLine("Unit Testing.....");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Testing Health Status");
+
+            Console.WriteLine("");
+            Console.WriteLine("Perfectly Healthy");
+            health = 100;
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus <=4);
+
+            Console.WriteLine("");
+            Console.WriteLine("Healthy");
+            health = 80;
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus <=3);
+
+            Console.WriteLine("");
+            Console.WriteLine("Hurt");
+            health = 70;
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus <=2);
+
+            Console.WriteLine("");
+            Console.WriteLine("Badly Hurt");
+            health = 50;
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus <= 1);
+
+            Console.WriteLine("");
+            Console.WriteLine("Dead");
+            health = 0;
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus <= 5);
+
+            Console.ReadKey(true);
+            Console.Clear();
+
+            //OneUp ...
+            Console.WriteLine("Unit Testing.....");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("OneUp");
+
+            Console.WriteLine("");
+            shield = 50;
+            health = 50;
+            lives = 2;
+
+            Console.WriteLine("before OneUp");
+            HealthStatusCheck();
+            Console.WriteLine("");
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            OneUp();
+            HealthStatusCheck();
+            Console.WriteLine("");
+            Console.WriteLine("Shield:" + shield);
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Console.WriteLine("Lives:" + lives);
+
         }
 
         static void ArraysInilization()
@@ -286,7 +390,7 @@ namespace HealthSystemv1._0
         {
             lives = lives + 1;
             health = 100;
-            RegenerateShield(1);
+            shield = 100;
 
 
             Console.WriteLine("You got a 1UP!");
@@ -299,7 +403,7 @@ namespace HealthSystemv1._0
             {
                 Console.WriteLine("Goblin Misses Attack!");
             }
-            Console.WriteLine("Goblin Attack does " + (hits * monsterAttack) + " damage!");
+            Console.WriteLine("Goblin Attacks! he hits " + hits + " Times and does " + (hits * monsterAttack) + " Damage!");
 
 
             // Range Checking and "Spill over effect"
