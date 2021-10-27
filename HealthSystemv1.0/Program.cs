@@ -42,7 +42,7 @@ namespace HealthSystemv1._0
             Console.ReadKey(true);
             health = 100;
             shield = 100;
-            lives = 3;
+            lives = 2;
             enemyHealth = 100;
             enemyHealth = 100;
             enemyLives = 1;
@@ -255,6 +255,13 @@ namespace HealthSystemv1._0
             Debug.Assert(shield == 50);
             Debug.Assert(health == 100);
             Debug.Assert(lives == 3);
+            // Lives Range Checking 
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(100);
+            Console.WriteLine(shield + " " + health + " " + lives);
+            Debug.Assert(lives == 0);
 
 
             // Health Status ....
@@ -390,7 +397,32 @@ namespace HealthSystemv1._0
                     shield = shield + health;
                     health = 100;
 
+                    if (shield <0)
+                    {
+                        health = health + shield;
+                        shield = 0;
 
+                        if (health <= 0)
+                        {
+                            lives = lives - 1;
+                            shield = 100;
+                            shield = shield + health;
+                            health = 100;
+
+                            if (shield <0)
+                            {
+                                health = health + shield;
+                                shield = 0;
+
+                                if (health <= 0)
+                                {
+                                    lives = 0;
+                                    health = 0;
+                                    shield = 0;
+                                }
+                            }
+                        }
+                    }
                   
 
                 }
