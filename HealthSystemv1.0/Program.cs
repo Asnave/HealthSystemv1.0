@@ -40,7 +40,9 @@ namespace HealthSystemv1._0
 
             StartScreen();
             Console.ReadKey(true);
-            
+            health = 100;
+            shield = 100;
+            lives = 3;
 
             ChangeWeapon(3);
             Console.WriteLine("");
@@ -329,7 +331,7 @@ namespace HealthSystemv1._0
 
             Console.ReadKey(true);
             Console.Clear();
-
+             // Change Weapon
             Console.WriteLine("Unit Testing.....");
             Console.WriteLine("");
             Console.WriteLine("");
@@ -368,6 +370,105 @@ namespace HealthSystemv1._0
             ChangeWeapon(4);
             Console.WriteLine("");
             Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+
+            Console.ReadKey(true);
+            Console.Clear();
+
+            // Testing do damage 
+            Console.WriteLine("Unit Testing.....");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Testing DoDamage");
+            Console.WriteLine("");
+
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(2);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            weapon = 3;
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            weapon = 2;
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            weapon = 1;
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            weapon = 0;
+            enemyShield = 100;
+            enemyHealth = 100;
+            enemyLives = 3;
+            DoDamage(6);
+            HealthStatusCheck();
+            Console.WriteLine("--------Enemy Stats--------");
+            Console.WriteLine("Shield:" + enemyShield);
+            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
+            Console.WriteLine("Lives:" + enemyLives);
+
+
+            Console.ReadKey(true);
+            Console.Clear();
+            Console.WriteLine("Testing Win Screen");
+            YouWin();
+            Console.ReadKey(true);
+            Console.Clear();
+            Console.WriteLine("Testing GameOver Screen");
+            GameOver();
+            Console.ReadKey(true);
+            Console.Clear();
+
+
         }
 
         static void ArraysInilization()
@@ -473,7 +574,7 @@ namespace HealthSystemv1._0
         {
             enemyShield = enemyShield - (hits * weaponDamage[weapon]);
 
-            Console.WriteLine("You Attack! doing " + (hits * weaponDamage[weapon]) + " damage! with your " + weaponName[weapon] + "!");
+            Console.WriteLine("You Attack! you hit " + hits + " Times and does " + (hits * weaponDamage[weapon]) + " damage! with your " + weaponName[weapon] + "!");
 
             // Range Checking and "Spill over effect"
             if (enemyShield < 0)
@@ -485,8 +586,9 @@ namespace HealthSystemv1._0
                 if (enemyHealth <= 0)
                 {
                     enemyLives = enemyLives - 1;
-                    enemyHealth = 100;
                     enemyShield = 100;
+                    shield = shield + health;
+                    health = 100;
 
                     if (enemyLives <= 0)
                     {
