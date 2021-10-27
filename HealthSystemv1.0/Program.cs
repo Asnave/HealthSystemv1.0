@@ -189,6 +189,17 @@ namespace HealthSystemv1._0
             Console.WriteLine("");
             Console.WriteLine("");
 
+            Console.WriteLine("Testing Heal (int -10hp) shouldnt register a negative heal");
+            health = 100;
+            Heal(-10);
+            ErrorCheck();
+            HealthStatusCheck();
+            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(health <=100);
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
             //RegenerateShield Debug
             Console.WriteLine("Testing RegenerateShield(int hp) should respect <= 100");
             shield = 100;
@@ -198,6 +209,15 @@ namespace HealthSystemv1._0
             Debug.Assert(shield <= 100);
 
             Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Testing RegenerateShield(int -10hp) shouldnt register a negative heal");
+            shield = 100;
+            RegenerateShield(-10);
+            ErrorCheck();
+            Console.WriteLine("Shield:" + shield);
+            Debug.Assert(shield <= 100);
+
             Console.WriteLine("");
 
             Console.WriteLine("Testing Spill Over Effect");
@@ -499,6 +519,10 @@ namespace HealthSystemv1._0
         }
         static void RegenerateShield(int hp)
         {
+            if (hp < 0)
+            {
+                hp = 0;
+            }
             shield = shield + hp;
             Console.WriteLine("Your Shield Has Regenerated! " + hp + " hp");
            
@@ -515,6 +539,10 @@ namespace HealthSystemv1._0
         }
         static void Heal(int hp)
         {
+            if (hp < 0)
+            {
+                hp = 0;
+            }
 
             health = health + hp;
 
@@ -524,6 +552,7 @@ namespace HealthSystemv1._0
                 health = 100;
             }
 
+            
             Console.WriteLine("You Have Been Healed! " + hp + " hp");
 
             ErrorCheck();
