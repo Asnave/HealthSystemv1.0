@@ -168,329 +168,126 @@ namespace HealthSystemv1._0
 
         static void UnityTesting()
         {
-            
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Unity testing....");
-            Console.WriteLine("");
 
             // Heal Debugs 
-            Console.WriteLine("Testing Heal(int hp) should respect <= 100");
+           //Console.WriteLine("Testing Heal(int hp) should respect <= 100");
             health = 100;
             Heal(10);
-            ErrorCheck();
-            HealthStatusCheck();
-            Console.WriteLine( "Health:" + health + " " + healthStatus[currentHealthStatus]);
+            ///HealthStatusCheck();
+            ///Console.WriteLine( "Health:" + health + " " + healthStatus[currentHealthStatus]);
             Debug.Assert(health <= 100);
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+            health = 80;
+            Heal(10);
+            Debug.Assert(health > 80);
+            Debug.Assert(health <= 100);
 
-            Console.WriteLine("Testing Heal (int -10hp) shouldnt register a negative heal");
+            //Console.WriteLine("Testing Heal (int -10hp) shouldnt register a negative heal");
             health = 100;
             Heal(-10);
-            ErrorCheck();
-            HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(health <=100);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Debug.Assert(health == 100);
 
             //RegenerateShield Debug
-            Console.WriteLine("Testing RegenerateShield(int hp) should respect <= 100");
+            //Console.WriteLine("Testing RegenerateShield(int hp) should respect <= 100");
             shield = 100;
             RegenerateShield(10);
-            ErrorCheck();
-            Console.WriteLine("Shield:" + shield);
+            //Console.WriteLine("Shield:" + shield);
             Debug.Assert(shield <= 100);
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+            shield = 80;
+            RegenerateShield(10);
+            Debug.Assert(shield > 80);
+            Debug.Assert(shield <= 100);
 
-            Console.WriteLine("Testing RegenerateShield(int -10hp) shouldnt register a negative heal");
+            //Console.WriteLine("Testing RegenerateShield(int -10hp) shouldnt register a negative heal");
             shield = 100;
             RegenerateShield(-10);
-            ErrorCheck();
-            Console.WriteLine("Shield:" + shield);
-            Debug.Assert(shield <= 100);
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Testing Spill Over Effect");
+            Debug.Assert(shield == 100);
 
             // spill over 
-            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
+            // Console.WriteLine("TakeDamage(int 15 hits) *300 DAMAGE* Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
             TakeDamage(15);
-            HealthStatusCheck();
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
+            Debug.Assert(shield == 0);
+            Debug.Assert(health == 100);
+            Debug.Assert(lives == 2);
+           // Console.WriteLine("TakeDamage(int 12 hits) *240 DAMAGE* Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
             TakeDamage(12);
-            HealthStatusCheck();
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
+            Debug.Assert(shield == 60);
+            Debug.Assert(health == 100);
+            Debug.Assert(lives == 2);
+            //Console.WriteLine("TakeDamage(int 3 hits) *60 DAMAGE* Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
             TakeDamage(3);
-            HealthStatusCheck();
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            Console.WriteLine("TakeDamage(int hits) Modifing health, shield, lives");
+            Debug.Assert(shield == 40);
+            Debug.Assert(health == 100);
+            Debug.Assert(lives == 3);
+            //Console.WriteLine("TakeDamage(int 6 hits) *120 DAMAGE* Modifing health, shield, lives");
             shield = 100;
             health = 100;
             lives = 3;
-
             TakeDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
+            Debug.Assert(shield == 0);
+            Debug.Assert(health == 80);
+            Debug.Assert(lives == 3);
+            //Take Damage and Heal
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(6);
+            Heal(10);
+            Debug.Assert(shield == 0);
+            Debug.Assert(health == 90);
+            Debug.Assert(lives == 3);
+            //Take Damage and Regenerate Shield
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(3);
+            RegenerateShield(10);
+            Debug.Assert(shield == 50);
+            Debug.Assert(health == 100);
+            Debug.Assert(lives == 3);
 
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            Console.ReadKey(true);
-            Console.Clear();
 
             // Health Status ....
-            Console.WriteLine("Unit Testing.....");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Testing Health Status");
 
-            Console.WriteLine("");
-            Console.WriteLine("Perfectly Healthy");
+            //Console.WriteLine("Perfectly Healthy");
             health = 100;
             HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(currentHealthStatus <=4);
+            //Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus == 4);
 
-            Console.WriteLine("");
-            Console.WriteLine("Healthy");
+            //Console.WriteLine("Healthy");
             health = 80;
             HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(currentHealthStatus <=3);
+            //Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus ==3);
 
-            Console.WriteLine("");
-            Console.WriteLine("Hurt");
+            //Console.WriteLine("Hurt");
             health = 70;
             HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(currentHealthStatus <=2);
+            //Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus ==2);
 
-            Console.WriteLine("");
-            Console.WriteLine("Badly Hurt");
+            //Console.WriteLine("Badly Hurt");
             health = 50;
             HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(currentHealthStatus <= 1);
+            //Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus == 1);
 
-            Console.WriteLine("");
-            Console.WriteLine("Dead");
+            //Console.WriteLine("Dead");
             health = 0;
             HealthStatusCheck();
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Debug.Assert(currentHealthStatus <= 5);
-
-            Console.ReadKey(true);
-            Console.Clear();
-
-            //OneUp ...
-            Console.WriteLine("Unit Testing.....");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Testing OneUp");
-
-            Console.WriteLine("");
-            shield = 50;
-            health = 50;
-            lives = 2;
-
-            Console.WriteLine("before OneUp");
-            HealthStatusCheck();
-            Console.WriteLine("");
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            OneUp();
-            HealthStatusCheck();
-            Console.WriteLine("");
-            Console.WriteLine("Shield:" + shield);
-            Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
-            Console.WriteLine("Lives:" + lives);
-
-
-            Console.ReadKey(true);
-            Console.Clear();
-             // Change Weapon
-            Console.WriteLine("Unit Testing.....");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Testing Change Weapon");
-            Console.WriteLine("");
-
-            weapon = 0;
-            Console.WriteLine("Before change Weapon");
-            Console.WriteLine("");
-            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-            Console.WriteLine("");
-
-            Console.WriteLine("Change to Spear");
-            ChangeWeapon(1);
-            Console.WriteLine("");
-            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Change to Daggers");
-            ChangeWeapon(2);
-            Console.WriteLine("");
-            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Change to Battle Axe");
-            ChangeWeapon(3);
-            Console.WriteLine("");
-            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Change to Long Sword");
-            ChangeWeapon(4);
-            Console.WriteLine("");
-            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
-
-            Console.ReadKey(true);
-            Console.Clear();
-
-            // Testing do damage 
-            Console.WriteLine("Unit Testing.....");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Testing DoDamage");
-            Console.WriteLine("");
-
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(2);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            weapon = 3;
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            weapon = 2;
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            weapon = 1;
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-            weapon = 0;
-            enemyShield = 100;
-            enemyHealth = 100;
-            enemyLives = 1;
-            DoDamage(6);
-            HealthStatusCheck();
-            Console.WriteLine("--------Enemy Stats--------");
-            Console.WriteLine("Shield:" + enemyShield);
-            Console.WriteLine("Health:" + enemyHealth + " " + healthStatus[eCurrentHealthStatus]);
-            Console.WriteLine("Lives:" + enemyLives);
-
-
-            Console.ReadKey(true);
-            Console.Clear();
-            Console.WriteLine("Testing Win Screen");
-            YouWin();
-            Console.ReadKey(true);
-            Console.Clear();
-            Console.WriteLine("Testing GameOver Screen");
-            GameOver();
-            Console.ReadKey(true);
-            Console.Clear();
-
-
+            //Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
+            Debug.Assert(currentHealthStatus == 5);
         }
 
         static void ArraysInilization()
@@ -555,7 +352,7 @@ namespace HealthSystemv1._0
             
             Console.WriteLine("You Have Been Healed! " + hp + " hp");
 
-            ErrorCheck();
+            
 
 
         }
