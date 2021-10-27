@@ -302,7 +302,7 @@ namespace HealthSystemv1._0
             Console.WriteLine("Unit Testing.....");
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("OneUp");
+            Console.WriteLine("Testing OneUp");
 
             Console.WriteLine("");
             shield = 50;
@@ -326,6 +326,48 @@ namespace HealthSystemv1._0
             Console.WriteLine("Health:" + health + " " + healthStatus[currentHealthStatus]);
             Console.WriteLine("Lives:" + lives);
 
+
+            Console.ReadKey(true);
+            Console.Clear();
+
+            Console.WriteLine("Unit Testing.....");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Testing Change Weapon");
+            Console.WriteLine("");
+
+            weapon = 0;
+            Console.WriteLine("Before change Weapon");
+            Console.WriteLine("");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Change to Spear");
+            ChangeWeapon(1);
+            Console.WriteLine("");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Change to Daggers");
+            ChangeWeapon(2);
+            Console.WriteLine("");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Change to Battle Axe");
+            ChangeWeapon(3);
+            Console.WriteLine("");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Change to Long Sword");
+            ChangeWeapon(4);
+            Console.WriteLine("");
+            Console.WriteLine("   " + weaponName[weapon] + "        <Player does " + weaponDamage[weapon] + " Damage>");
         }
 
         static void ArraysInilization()
