@@ -173,10 +173,8 @@ namespace HealthSystemv1._0
            //Console.WriteLine("Testing Heal(int hp) should respect <= 100");
             health = 100;
             Heal(10);
-            ///HealthStatusCheck();
-            ///Console.WriteLine( "Health:" + health + " " + healthStatus[currentHealthStatus]);
             Debug.Assert(health <= 100);
-
+            // Heal modifing health
             health = 80;
             Heal(10);
             Debug.Assert(health > 80);
@@ -193,7 +191,7 @@ namespace HealthSystemv1._0
             RegenerateShield(10);
             //Console.WriteLine("Shield:" + shield);
             Debug.Assert(shield <= 100);
-
+            // RegenerateShield modifing shield
             shield = 80;
             RegenerateShield(10);
             Debug.Assert(shield > 80);
@@ -237,6 +235,14 @@ namespace HealthSystemv1._0
             Debug.Assert(shield == 0);
             Debug.Assert(health == 80);
             Debug.Assert(lives == 3);
+            // TakeDamage(int -6 hits) should register as a miss attack = no damage 
+            shield = 100;
+            health = 100;
+            lives = 3;
+            TakeDamage(-6);
+            Debug.Assert(shield == 100);
+            Debug.Assert(health == 100);
+            Debug.Assert(lives == 3);
             //Take Damage and Heal
             shield = 100;
             health = 100;
@@ -255,14 +261,14 @@ namespace HealthSystemv1._0
             Debug.Assert(shield == 50);
             Debug.Assert(health == 100);
             Debug.Assert(lives == 3);
-            // Lives Range Checking 
-            shield = 100;
-            health = 100;
+            // Lives Range Checking shouldnt be negative int
             lives = 3;
             TakeDamage(100);
-            Console.WriteLine(shield + " " + health + " " + lives);
             Debug.Assert(lives == 0);
-
+            // lives shouldnt be greater then 3
+            lives = 3;
+            OneUp();
+            Debug.Assert(lives == 3);
 
             // Health Status ....
 
@@ -369,20 +375,27 @@ namespace HealthSystemv1._0
             lives = lives + 1;
             health = 100;
             shield = 100;
-
-
             Console.WriteLine("You got a 1UP!");
-
+            if (lives >= 3)
+            {
+                lives = 3;
+                Console.WriteLine("You Maxed Out on lives!");
+            }
         }
         static void TakeDamage(int hits)
         {
-            shield = shield - (hits * monsterAttack);
+            if (hits <0)
+            {
+                hits = 0;
+            }
+
             if (hits == 0)
             {
                 Console.WriteLine("Goblin Misses Attack!");
             }
-            Console.WriteLine("Goblin Attacks! he hits " + hits + " Times and does " + (hits * monsterAttack) + " Damage!");
 
+            shield = shield - (hits * monsterAttack);
+            Console.WriteLine("Goblin Attacks! he hits " + hits + " Times and does " + (hits * monsterAttack) + " Damage!");
 
             // Range Checking and "Spill over effect"
             if (shield < 0)
